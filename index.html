@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Sensual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.0/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a100e; color: #f5e6e0; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .banner-slide { transition: opacity 1s ease-in-out; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(139, 69, 19, 0.3); }
+        .product-card { transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #8b4513 0%, #5c2e0e 100%); }
+        .btn-primary:hover { background: linear-gradient(135deg, #a0522d 0%, #6b3610 100%); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a100e; }
+        ::-webkit-scrollbar-thumb { background: #8b4513; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#1a100e]/95 backdrop-blur-md border-b border-[#8b4513]/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showHome()">
+                <h1 class="text-2xl md:text-3xl font-serif text-[#d4a574] tracking-wide"><a href="index.html">Chocolate Sensual</a></h1>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm uppercase tracking-widest text-[#f5e6e0]/80">
+                <a href="" onclick="showHome()" class="hover:text-[#d4a574] transition">Início</a>
+                <a href="" onclick="showHome()" class="hover:text-[#d4a574] transition">Produtos</a>
+                <a href="" onclick="showHome()" class="hover:text-[#d4a574] transition">Sobre</a>
+                <a href="" onclick="showHome()" class="hover:text-[#d4a574] transition">Contato</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 hover:text-[#d4a574] transition" onclick="toggleCart()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#d4a574] text-[#1a100e] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow">
+        <!-- Home View -->
+        <div id="home-view" class="fade-in">
+            <!-- Banners -->
+            <section class="relative w-full h-[500px] md:h-[600px] overflow-hidden">
+                <div id="banner-container" class="relative w-full h-full">
+                    <img id="banner-img" src="https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1975870ac-a27e-4c83-9e48-a5ad8a9b5725.png" class="absolute inset-0 w-full h-full object-cover banner-slide" alt="Banner 1">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#1a100e]/90 via-[#1a100e]/40 to-transparent flex items-center">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                            <div class="max-w-xl fade-in">
+                                <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">Experiência Premium</p>
+                                <h2 class="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">O Prazer em Cada Mordida</h2>
+                                <p class="text-[#f5e6e0]/80 text-lg mb-8">Descubra a arte do chocolate artesanal, feito com paixão e os melhores ingredientes.</p>
+                                <a href="#produtos" class="btn-primary text-white px-8 py-3 rounded-full uppercase tracking-widest text-sm inline-block hover:scale-105 transition">Ver Coleção</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Banner Indicators -->
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+                    <button onclick="setBanner(0)" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition banner-dot active"></button>
+                    <button onclick="setBanner(1)" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition banner-dot"></button>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="produtos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center mb-16">
+                    <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">Nossos Tesouros</p>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white">Produtos Exclusivos</h2>
+                    <div class="w-24 h-1 bg-[#8b4513] mx-auto mt-6"></div>
+                </div>
+                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Products injected via JS -->
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="sobre" class="bg-[#231612] py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">Nossa História</p>
+                        <h2 class="text-4xl font-serif text-white mb-6">Paixão pelo Chocolate</h2>
+                        <p class="text-[#f5e6e0]/80 mb-6 leading-relaxed">Na Chocolate Sensual, acreditamos que o chocolate é mais do que um doce — é uma experiência sensorial. Cada peça é cuidadosamente elaborada por nossos mestres chocolatiers, utilizando cacau de origem e ingredientes selecionados.</p>
+                        <p class="text-[#f5e6e0]/80 leading-relaxed">Desde 2015, encantamos paladares exigentes com combinações inusitadas e sabores que despertam os sentidos.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                            <div class="text-3xl font-serif text-[#d4a574] mb-2">10+</div>
+                            <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Anos de Tradição</div>
+                        </div>
+                        <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                            <div class="text-3xl font-serif text-[#d4a574] mb-2">50+</div>
+                            <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Sabores Únicos</div>
+                        </div>
+                        <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                            <div class="text-3xl font-serif text-[#d4a574] mb-2">100%</div>
+                            <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Artesanal</div>
+                        </div>
+                        <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                            <div class="text-3xl font-serif text-[#d4a574] mb-2">5k+</div>
+                            <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Clientes Felizes</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Product Detail View -->
+        <div id="product-view" class="hidden fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <button onclick="showHome()" class="flex items-center gap-2 text-[#d4a574] hover:text-white transition mb-8 uppercase tracking-widest text-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                Voltar para Produtos
+            </button>
+            <div id="product-detail-content" class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-[#0f0908] border-t border-[#8b4513]/20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-2xl font-serif text-[#d4a574] mb-4">Chocolate Sensual</h3>
+                <p class="text-[#f5e6e0]/60 text-sm">Despertando os sentidos através do melhor chocolate artesanal do Brasil.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-serif mb-4">Contato</h4>
+                <p class="text-[#f5e6e0]/60 text-sm mb-2">📍 Rua do Cacau, 123 - São Paulo</p>
+                <p class="text-[#f5e6e0]/60 text-sm mb-2">📞 (11) 99999-9999</p>
+                <p class="text-[#f5e6e0]/60 text-sm">✉️ contato@chocolatesensual.com</p>
+            </div>
+            <div>
+                <h4 class="text-white font-serif mb-4">Siga-nos</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#8b4513]/20 flex items-center justify-center hover:bg-[#8b4513] transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#8b4513]/20 flex items-center justify-center hover:bg-[#8b4513] transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-12 pt-8 border-t border-[#8b4513]/10 text-[#f5e6e0]/40 text-sm">
+            © 2026 Chocolate Sensual. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-[#231612] shadow-2xl p-6 overflow-y-auto transform transition-transform">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-serif text-white">Seu Carrinho</h3>
+                <button onclick="toggleCart()" class="text-[#f5e6e0]/60 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="cart-items" class="space-y-4 mb-8">
+                <p class="text-[#f5e6e0]/60 text-center py-8">Seu carrinho está vazio.</p>
+            </div>
+            <div class="border-t border-[#8b4513]/20 pt-6">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-[#f5e6e0]/80">Total</span>
+                    <span id="cart-total" class="text-2xl font-serif text-[#d4a574]">R$ 0,00</span>
+                </div>
+                <button class="btn-primary w-full text-white py-3 rounded-full uppercase tracking-widest text-sm hover:scale-[1.02] transition">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Trufa de Maracujá",
+                price: 12.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/18041f872-f4f8-4eb8-a7c2-eb5fd2f8eecf.png",
+                description: "Uma explosão tropical em cada mordida. Nossa trufa de maracujá combina o chocolate belga 70% com um recheio cremoso e azedinho de maracujá fresco. Perfeita para quem busca um equilíbrio entre o doce e o cítrico.",
+                weight: "25g",
+                ingredients: "Chocolate belga 70%, polpa de maracujá, creme de leite, açúcar."
+            },
+            {
+                id: 2,
+                name: "Morango com Chocolate",
+                price: 18.50,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1a21d9f3c-45af-4466-ba51-9bdf2db57e91.png",
+                description: "O clássico irresistível. Morangos frescos e suculentos mergulhados em chocolate ao leite cremoso, finalizados com um delicado fio de chocolate branco. Uma experiência sensual e refrescante.",
+                weight: "40g",
+                ingredients: "Morango fresco, chocolate ao leite 45%, chocolate branco."
+            },
+            {
+                id: 3,
+                name: "Tablete 70% Cacau",
+                price: 34.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/10312e05f-e6ce-40b2-bb35-0c9b6e16839a.png",
+                description: "Para os verdadeiros apreciadores. Nosso tablete de chocolate amargo 70% é feito com cacau de origem equatoriana, oferecendo notas frutadas e um final aveludado. Ideal para harmonizar com vinhos tintos.",
+                weight: "100g",
+                ingredients: "Massa de cacau, manteiga de cacau, açúcar de coco, baunilha natural."
+            },
+            {
+                id: 4,
+                name: "Cesta de Chocolates",
+                price: 189.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1d5d0af33-a4bc-442c-a49c-4f42f314893a.png",
+                description: "O presente perfeito para momentos especiais. Nossa cesta contém uma seleção de 12 bombons artesanais variados, incluindo trufas, pralinés e ganaches, embalados em uma cesta de vime com laço de cetim.",
+                weight: "300g",
+                ingredients: "Variado. Consulte a lista completa na embalagem."
+            }
+        ];
+
+        let cart = [];
+        let currentBanner = 0;
+        const banners = [
+            {
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1975870ac-a27e-4c83-9e48-a5ad8a9b5725.png",
+                title: "O Prazer em Cada Mordida",
+                subtitle: "Descubra a arte do chocolate artesanal, feito com paixão e os melhores ingredientes."
+            },
+            {
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/10474bc3b-1d95-41a0-931b-15a3f1be2ba6.png",
+                title: "Sabores que Encantam",
+                subtitle: "Chocolate artesanal com avelãs e frutas vermelhas, uma combinação perfeita para o seu paladar."
+            }
+        ];
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card bg-[#231612] rounded-xl overflow-hidden border border-[#8b4513]/20 cursor-pointer group" onclick="showProduct(${p.id})">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#1a100e] to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-serif text-white mb-2">${p.name}</h3>
+                        <p class="text-[#f5e6e0]/60 text-sm mb-4 line-clamp-2">${p.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[#d4a574] font-bold text-lg">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                            <button class="text-[#d4a574] hover:text-white transition uppercase text-xs tracking-widest flex items-center gap-1">
+                                Ver <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const detail = document.getElementById('product-detail-content');
+            detail.innerHTML = `
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-[400px] md:h-[500px] object-cover">
+                </div>
+                <div class="fade-in">
+                    <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">Produto Exclusivo</p>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white mb-6">${product.name}</h2>
+                    <p class="text-3xl font-serif text-[#d4a574] mb-8">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
+                    <p class="text-[#f5e6e0]/80 text-lg mb-8 leading-relaxed">${product.description}</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex gap-4 border-b border-[#8b4513]/20 pb-4">
+                            <span class="text-[#d4a574] font-bold w-24">Peso:</span>
+                            <span class="text-[#f5e6e0]/80">${product.weight}</span>
+                        </div>
+                        <div class="flex gap-4 border-b border-[#8b4513]/20 pb-4">
+                            <span class="text-[#d4a574] font-bold w-24">Ingredientes:</span>
+                            <span class="text-[#f5e6e0]/80">${product.ingredients}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="addToCart(${product.id})" class="btn-primary flex-1 text-white py-4 rounded-full uppercase tracking-widest text-sm hover:scale-[1.02] transition flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('product-view').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showHome() {
+            document.getElementById('product-view').classList.add('hidden');
+            document.getElementById('home-view').classList.remove('hidden');
+        }
+
+        function setBanner(index) {
+            currentBanner = index;
+            const img = document.getElementById('banner-img');
+            const dots = document.querySelectorAll('.banner-dot');
+            
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = banners[index].image;
+                img.style.opacity = 1;
+            }, 300);
+
+            dots.forEach((d, i) => {
+                if (i === index) d.classList.add('bg-white', 'w-8');
+                else d.classList.remove('bg-white', 'w-8');
+            });
+        }
+
+        setInterval(() => {
+            setBanner((currentBanner + 1) % banners.length);
+        }, 5000);
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCart();
+            
+            // Visual feedback
+            const btn = event.target.closest('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Adicionado!';
+            setTimeout(() => btn.innerHTML = originalText, 1500);
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').textContent = count;
+            
+            const cartItems = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-[#f5e6e0]/60 text-center py-8">Seu carrinho está vazio.</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 bg-[#1a100e] p-4 rounded-lg">
+                        <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="text-white font-serif mb-1">${item.name}</h4>
+                            <p class="text-[#d4a574] font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 rounded-full bg-[#8b4513]/30 hover:bg-[#8b4513] flex items-center justify-center text-sm">-</button>
+                                <span class="text-white text-sm">${item.qty}</span>
+                                <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 rounded-full bg-[#8b4513]/30 hover:bg-[#8b4513] flex items-center justify-center text-sm">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-[#f5e6e0]/40 hover:text-red-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+                updateCart();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Initialize
+        renderProducts();
+        setBanner(0);
+    </script>
+</body>
+</html>
+

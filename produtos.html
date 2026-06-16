@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Chocolate Sensual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.0/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a100e; color: #f5e6e0; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(139, 69, 19, 0.3); }
+        .product-card { transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #8b4513 0%, #5c2e0e 100%); }
+        .btn-primary:hover { background: linear-gradient(135deg, #a0522d 0%, #6b3610 100%); }
+        .filter-btn.active { background: linear-gradient(135deg, #8b4513 0%, #5c2e0e 100%); color: white; border-color: #8b4513; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a100e; }
+        ::-webkit-scrollbar-thumb { background: #8b4513; border-radius: 4px; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#1a100e]/95 backdrop-blur-md border-b border-[#8b4513]/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showHome()">
+                <h1 class="text-2xl md:text-3xl font-serif text-[#d4a574] tracking-wide"><a href="index.html">Chocolate Sensual</a></h1>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm uppercase tracking-widest text-[#f5e6e0]/80">
+                <a href="index.html" onclick="showHome()" class="hover:text-[#d4a574] transition">Início</a>
+                <a href="produtos.html" class="text-[#d4a574]">Produtos</a>
+                <a href="#sobre" class="hover:text-[#d4a574] transition">Sobre</a>
+                <a href="#contato" class="hover:text-[#d4a574] transition">Contato</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 hover:text-[#d4a574] transition" onclick="toggleCart()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#d4a574] text-[#1a100e] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Page Hero -->
+        <section class="relative w-full h-[300px] md:h-[400px] overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#231612] via-[#1a100e] to-[#0f0908]"></div>
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 50%, #8b4513 0%, transparent 50%), radial-gradient(circle at 80% 50%, #5c2e0e 0%, transparent 50%);"></div>
+            <div class="relative h-full flex items-center justify-center">
+                <div class="text-center fade-in px-4">
+                    <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">Nossa Coleção</p>
+                    <h2 class="text-4xl md:text-6xl font-serif text-white mb-4">Nossos Produtos</h2>
+                    <p class="text-[#f5e6e0]/70 max-w-2xl mx-auto text-lg">Descubra nossa seleção exclusiva de chocolates artesanais, trufas, tabletes e bombons premium.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <!-- Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="filter-btn active border border-[#8b4513]/30 px-6 py-2 rounded-full text-sm uppercase tracking-widest text-[#f5e6e0]/80 hover:text-white transition" onclick="filterProducts('all')">Todos</button>
+                <button class="filter-btn border border-[#8b4513]/30 px-6 py-2 rounded-full text-sm uppercase tracking-widest text-[#f5e6e0]/80 hover:text-white transition" onclick="filterProducts('trufas')">Trufas</button>
+                <button class="filter-btn border border-[#8b4513]/30 px-6 py-2 rounded-full text-sm uppercase tracking-widest text-[#f5e6e0]/80 hover:text-white transition" onclick="filterProducts('tabletes')">Tabletes</button>
+                <button class="filter-btn border border-[#8b4513]/30 px-6 py-2 rounded-full text-sm uppercase tracking-widest text-[#f5e6e0]/80 hover:text-white transition" onclick="filterProducts('bombons')">Bombons</button>
+                <button class="filter-btn border border-[#8b4513]/30 px-6 py-2 rounded-full text-sm uppercase tracking-widest text-[#f5e6e0]/80 hover:text-white transition" onclick="filterProducts('lindt')">Lindt</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Products injected via JS -->
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="sobre" class="bg-[#231612] py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">Nossa História</p>
+                    <h2 class="text-4xl font-serif text-white mb-6">Paixão pelo Chocolate</h2>
+                    <p class="text-[#f5e6e0]/80 mb-6 leading-relaxed">Na Chocolate Sensual, acreditamos que o chocolate é mais do que um doce — é uma experiência sensorial. Cada peça é cuidadosamente elaborada por nossos mestres chocolatiers, utilizando cacau de origem e ingredientes selecionados.</p>
+                    <p class="text-[#f5e6e0]/80 leading-relaxed">Desde 2015, encantamos paladares exigentes com combinações inusitadas e sabores que despertam os sentidos.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                        <div class="text-3xl font-serif text-[#d4a574] mb-2">10+</div>
+                        <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Anos de Tradição</div>
+                    </div>
+                    <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                        <div class="text-3xl font-serif text-[#d4a574] mb-2">50+</div>
+                        <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Sabores Únicos</div>
+                    </div>
+                    <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                        <div class="text-3xl font-serif text-[#d4a574] mb-2">100%</div>
+                        <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Artesanal</div>
+                    </div>
+                    <div class="bg-[#1a100e] p-6 rounded-lg text-center border border-[#8b4513]/20">
+                        <div class="text-3xl font-serif text-[#d4a574] mb-2">5k+</div>
+                        <div class="text-sm text-[#f5e6e0]/60 uppercase tracking-wider">Clientes Felizes</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-[#0f0908] border-t border-[#8b4513]/20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-2xl font-serif text-[#d4a574] mb-4">Chocolate Sensual</h3>
+                <p class="text-[#f5e6e0]/60 text-sm">Despertando os sentidos através do melhor chocolate artesanal do Brasil.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-serif mb-4">Contato</h4>
+                <p class="text-[#f5e6e0]/60 text-sm mb-2">📍 Rua do Cacau, 123 - São Paulo</p>
+                <p class="text-[#f5e6e0]/60 text-sm mb-2">📞 (11) 99999-9999</p>
+                <p class="text-[#f5e6e0]/60 text-sm">✉️ contato@chocolatesensual.com</p>
+            </div>
+            <div>
+                <h4 class="text-white font-serif mb-4">Siga-nos</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#8b4513]/20 flex items-center justify-center hover:bg-[#8b4513] transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#8b4513]/20 flex items-center justify-center hover:bg-[#8b4513] transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-12 pt-8 border-t border-[#8b4513]/10 text-[#f5e6e0]/40 text-sm">
+            © 2026 Chocolate Sensual. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-[#231612] shadow-2xl p-6 overflow-y-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-serif text-white">Seu Carrinho</h3>
+                <button onclick="toggleCart()" class="text-[#f5e6e0]/60 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="cart-items" class="space-y-4 mb-8">
+                <p class="text-[#f5e6e0]/60 text-center py-8">Seu carrinho está vazio.</p>
+            </div>
+            <div class="border-t border-[#8b4513]/20 pt-6">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-[#f5e6e0]/80">Total</span>
+                    <span id="cart-total" class="text-2xl font-serif text-[#d4a574]">R$ 0,00</span>
+                </div>
+                <button class="btn-primary w-full text-white py-3 rounded-full uppercase tracking-widest text-sm hover:scale-[1.02] transition">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        <div class="absolute inset-4 md:inset-12 lg:inset-24 bg-[#231612] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-[#1a100e]/80 flex items-center justify-center text-white hover:bg-[#8b4513] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <div id="modal-image-container" class="md:w-1/2 h-64 md:h-full relative">
+                <img id="modal-image" src="" alt="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#231612] to-transparent md:from-transparent md:to-[#231612]/50"></div>
+            </div>
+            <div class="md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-center">
+                <div id="modal-content" class="fade-in">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Trufa de Morango",
+                category: "trufas",
+                price: 12.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1547c883d-2394-4207-a8fb-4a8409b04f7d.png",
+                description: "Uma explosão de sabor em cada mordida. Nossa trufa de morango combina chocolate belga ao leite com um recheio cremoso e azedinho de morango fresco. Perfeita para quem busca um equilíbrio entre o doce e o frutado.",
+                weight: "25g",
+                ingredients: "Chocolate ao leite 45%, polpa de morango, creme de leite, açúcar."
+            },
+            {
+                id: 2,
+                name: "Trufa de Coco Branco",
+                category: "trufas",
+                price: 12.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1547c883d-2394-4207-a8fb-4a8409b04f7d.png",
+                description: "Delicada e refrescante, nossa trufa de coco branco é revestida com flocos de coco desidratado e recheada com um creme aveludado de coco. Uma experiência tropical e sofisticada.",
+                weight: "25g",
+                ingredients: "Chocolate branco, coco ralado, creme de leite, leite condensado."
+            },
+            {
+                id: 3,
+                name: "Trufa de Maracujá",
+                category: "trufas",
+                price: 12.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1547c883d-2394-4207-a8fb-4a8409b04f7d.png",
+                description: "Uma explosão tropical em cada mordida. Nossa trufa de maracujá combina o chocolate belga 70% com um recheio cremoso e azedinho de maracujá fresco. Perfeita para quem busca um equilíbrio entre o doce e o cítrico.",
+                weight: "25g",
+                ingredients: "Chocolate belga 70%, polpa de maracujá, creme de leite, açúcar."
+            },
+            {
+                id: 4,
+                name: "Tablete 70% Cacau",
+                category: "tabletes",
+                price: 34.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/164debaf5-de1f-4f04-af5e-50110fc30251.png",
+                description: "Para os verdadeiros apreciadores. Nosso tablete de chocolate amargo 70% é feito com cacau de origem equatoriana, oferecendo notas frutadas e um final aveludado. Ideal para harmonizar com vinhos tintos.",
+                weight: "100g",
+                ingredients: "Massa de cacau, manteiga de cacau, açúcar de coco, baunilha natural."
+            },
+            {
+                id: 5,
+                name: "Tablete 70% Chocolate Branco",
+                category: "tabletes",
+                price: 34.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/164debaf5-de1f-4f04-af5e-50110fc30251.png",
+                description: "Cremoso e sofisticado, nosso chocolate branco premium é feito com manteiga de cacau pura e baunilha de Madagascar. Uma experiência doce e delicada que derrete na boca.",
+                weight: "100g",
+                ingredients: "Manteiga de cacau, leite em pó, açúcar, baunilha natural de Madagascar."
+            },
+            {
+                id: 6,
+                name: "Tablete 90% Cacau",
+                category: "tabletes",
+                price: 39.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/164debaf5-de1f-4f04-af5e-50110fc30251.png",
+                description: "Intenso e puro, para os amantes do chocolate mais amargo. Com 90% de cacau, este tablete oferece uma experiência rica, com notas de frutas secas e um final longo e persistente.",
+                weight: "100g",
+                ingredients: "Massa de cacau, manteiga de cacau, mínimo de açúcar, baunilha natural."
+            },
+            {
+                id: 7,
+                name: "Tablete 90% Chocolate Branco",
+                category: "tabletes",
+                price: 39.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/164debaf5-de1f-4f04-af5e-50110fc30251.png",
+                description: "Uma versão premium do chocolate branco, com redução de açúcar e maior concentração de manteiga de cacau. Textura sedosa e sabor delicado com toques de baunilha.",
+                weight: "100g",
+                ingredients: "Manteiga de cacau premium, leite em pó integral, açúcar de coco, baunilha natural."
+            },
+            {
+                id: 8,
+                name: "Bombom Ferrero Rocher 100g",
+                category: "bombons",
+                price: 29.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1b7b9b026-3041-4e7f-8c09-63074f9f2a47.png",
+                description: "O clássico italiano que conquistou o mundo. Uma avelã inteira envolta em wafer crocante, recheio cremoso de avelã e coberto com chocolate ao leite e pedaços de avelã. Embalagem com aproximadamente 100g.",
+                weight: "100g",
+                ingredients: "Chocolate ao leite, avelã, wafer, creme de avelã, óleo vegetal."
+            },
+            {
+                id: 9,
+                name: "Bombom Raffaello",
+                category: "bombons",
+                price: 29.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1b7b9b026-3041-4e7f-8c09-63074f9f2a47.png",
+                description: "Uma esfera de pura delicadeza. Amêndoa inteira envolta em creme branco de coco e amêndoa, coberta com flocos de coco. Um sabor leve, doce e irresistível.",
+                weight: "100g",
+                ingredients: "Coco ralado, amêndoa, leite condensado, chocolate branco, óleo de coco."
+            },
+            {
+                id: 10,
+                name: "Bombom Trufa Chocolate ao Leite Recheio Cremoso ao Rum 55g",
+                category: "bombons",
+                price: 18.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/1b7b9b026-3041-4e7f-8c09-63074f9f2a47.png",
+                description: "Uma experiência sofisticada para paladares exigentes. Chocolate ao leite cremoso com recheio aveludado aromatizado com rum premium. O equilíbrio perfeito entre o doce do chocolate e o toque alcoólico do rum.",
+                weight: "55g",
+                ingredients: "Chocolate ao leite, creme de leite, rum premium, açúcar, manteiga de cacau."
+            },
+            {
+                id: 11,
+                name: "Chocolate Lindt 75g Lindor Assorted Balls",
+                category: "lindt",
+                price: 45.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/192f37d23-a6ed-4b67-a239-633c2d8fb15c.png",
+                description: "A coleção clássica da Lindt. Caixas com trufas Lindor de sabores variados incluindo chocolate ao leite, meio amargo, branco e stracciatella. Cada trufa possui um recheio que derrete na boca.",
+                weight: "75g",
+                ingredients: "Chocolate ao leite, chocolate branco, chocolate amargo, creme de leite, manteiga de cacau."
+            },
+            {
+                id: 12,
+                name: "Chocolate Lindt 200g Lindor Pistache",
+                category: "lindt",
+                price: 89.90,
+                image: "https://image.qwenlm.ai/public_source/ffdbc46d-3fec-4fd5-8262-ce3fefc68ca6/192f37d23-a6ed-4b67-a239-633c2d8fb15c.png",
+                description: "Uma edição especial e sofisticada da linha Lindor. Trufas de chocolate branco com recheio cremoso de pistache. O sabor nobre e distinto do pistache combinado com a suavidade do chocolate branco.",
+                weight: "200g",
+                ingredients: "Chocolate branco, pasta de pistache, creme de leite, manteiga de cacau, pistache triturado."
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card bg-[#231612] rounded-xl overflow-hidden border border-[#8b4513]/20 cursor-pointer group fade-in" onclick="openProductModal(${p.id})">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#1a100e] to-transparent opacity-60"></div>
+                        <div class="absolute top-4 left-4 bg-[#8b4513] text-white text-xs uppercase tracking-widest px-3 py-1 rounded-full">${p.category}</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-serif text-white mb-2">${p.name}</h3>
+                        <p class="text-[#f5e6e0]/60 text-sm mb-4 line-clamp-2">${p.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[#d4a574] font-bold text-lg">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                            <button class="text-[#d4a574] hover:text-white transition uppercase text-xs tracking-widest flex items-center gap-1">
+                                Ver <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(category);
+        }
+
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modal-image').src = product.image;
+            document.getElementById('modal-image').alt = product.name;
+            
+            document.getElementById('modal-content').innerHTML = `
+                <p class="text-[#d4a574] uppercase tracking-[0.3em] text-sm mb-4">${product.category}</p>
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">${product.name}</h2>
+                <p class="text-3xl font-serif text-[#d4a574] mb-6">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
+                <p class="text-[#f5e6e0]/80 text-base mb-8 leading-relaxed">${product.description}</p>
+                
+                <div class="space-y-4 mb-8 border-t border-[#8b4513]/20 pt-6">
+                    <div class="flex gap-4 border-b border-[#8b4513]/20 pb-4">
+                        <span class="text-[#d4a574] font-bold w-28">Peso:</span>
+                        <span class="text-[#f5e6e0]/80">${product.weight}</span>
+                    </div>
+                    <div class="flex gap-4 pb-2">
+                        <span class="text-[#d4a574] font-bold w-28">Ingredientes:</span>
+                        <span class="text-[#f5e6e0]/80">${product.ingredients}</span>
+                    </div>
+                </div>
+
+                <button onclick="addToCart(${product.id}); closeProductModal();" class="btn-primary w-full text-white py-4 rounded-full uppercase tracking-widest text-sm hover:scale-[1.02] transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Adicionar ao Carrinho
+                </button>
+            `;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function showHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').textContent = count;
+            
+            const cartItems = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-[#f5e6e0]/60 text-center py-8">Seu carrinho está vazio.</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 bg-[#1a100e] p-4 rounded-lg">
+                        <img src="${item.image}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="text-white font-serif mb-1 text-sm">${item.name}</h4>
+                            <p class="text-[#d4a574] font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 rounded-full bg-[#8b4513]/30 hover:bg-[#8b4513] flex items-center justify-center text-sm">-</button>
+                                <span class="text-white text-sm">${item.qty}</span>
+                                <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 rounded-full bg-[#8b4513]/30 hover:bg-[#8b4513] flex items-center justify-center text-sm">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-[#f5e6e0]/40 hover:text-red-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+                updateCart();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Initialize
+        renderProducts();
+    </script>
+</body>
+</html>
+
